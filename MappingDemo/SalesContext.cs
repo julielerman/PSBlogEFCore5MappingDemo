@@ -9,19 +9,29 @@ namespace MappingDemo
         public DbSet<Order> Orders { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
-        public IQueryable<CustWithTotal> NameAndTotalSpentByCustomer()
+        public int TotalSpentByCustomer(int customerId)
+     => throw new NotSupportedException();
+
+
+        public IQueryable<CustWithTotalClass> NameAndTotalSpentByCustomer()
           => FromExpression(() => NameAndTotalSpentByCustomer());
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=MappingDemo2");
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=MappingDemo");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           modelBuilder.HasDbFunction(typeof(SalesContext)
+            modelBuilder.HasDbFunction(typeof(SalesContext)
+                .GetMethod(nameof(TotalSpentByCustomer),
+                           new[] { typeof(int) }))
+                .HasName("TotalSpentByCustomer");
+
+            modelBuilder.HasDbFunction(typeof(SalesContext)
              .GetMethod(nameof(NameAndTotalSpentByCustomer)))
              .HasName("CustomerNameAndTotalSpent");
-            modelBuilder.Entity<CustWithTotal>().HasNoKey();
+
+            modelBuilder.Entity<CustWithTotalClass>().HasNoKey();
 
             modelBuilder.Entity<Customer>().HasData(
                 new Customer { CustomerId = 1, Name = "Julie" },
@@ -30,7 +40,7 @@ namespace MappingDemo
             modelBuilder.Entity<Order>().HasData(
                 new Order { OrderId = 1, Date = DateTime.Today.AddDays(-1), CustomerId = 1 },
                 new Order { OrderId = 2, Date = DateTime.Today, CustomerId = 1 },
-                 new Order { OrderId = 3, Date = DateTime.Today, CustomerId = 2 }
+                new Order { OrderId = 3, Date = DateTime.Today, CustomerId = 2 }
             );
             modelBuilder.Entity<Product>().HasData(
                  new Product { ProductId = 1, Description = "Red Bicycle", UnitPrice = 100 },
