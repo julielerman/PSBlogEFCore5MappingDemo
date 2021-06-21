@@ -14,7 +14,7 @@ namespace MappingDemo
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=MappingDemo");
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=MappingDemo2");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
