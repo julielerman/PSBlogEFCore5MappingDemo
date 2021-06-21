@@ -9,10 +9,6 @@ namespace MappingDemo
         public DbSet<Order> Orders { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
-        public int TotalSpentByCustomer(int customerId)
-     => throw new NotSupportedException();
-
-
         public IQueryable<CustWithTotalClass> NameAndTotalSpentByCustomer()
           => FromExpression(() => NameAndTotalSpentByCustomer());
 
@@ -22,10 +18,7 @@ namespace MappingDemo
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDbFunction(typeof(SalesContext)
-                .GetMethod(nameof(TotalSpentByCustomer),
-                           new[] { typeof(int) }))
-                .HasName("TotalSpentByCustomer");
+         
 
             modelBuilder.HasDbFunction(typeof(SalesContext)
              .GetMethod(nameof(NameAndTotalSpentByCustomer)))
