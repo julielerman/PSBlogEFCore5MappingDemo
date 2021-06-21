@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MappingDemo.Migrations
 {
     [DbContext(typeof(SalesContext))]
-    [Migration("20210621164115_init2")]
-    partial class init2
+    [Migration("20210621190635_addudfs")]
+    partial class addudfs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
