@@ -2,7 +2,7 @@
 
 namespace MappingDemo.Migrations
 {
-    public partial class init2 : Migration
+    public partial class addudfs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
