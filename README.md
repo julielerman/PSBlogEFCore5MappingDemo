@@ -1,4 +1,4 @@
-# PSBlogEFCore5MappingDemo
+# PS Blog EF Core 5 Mapping Demo
 
 This code demo goes along with an article I wrote for Pluralsight's All Hands on Tech blog
 
